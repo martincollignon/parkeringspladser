@@ -108,20 +108,6 @@ We welcome contributions from the community! This project follows the principles
 6. Push to the branch (`git push origin feature/amazing-feature`)
 7. Open a Pull Request
 
-## 📊 Current Status
-
-### Phase 1: Foundation & Quick Wins ✅
-- [x] Repository Setup
-- [x] Tech Stack Decisions (MapLibre + Protomaps)
-- [ ] Supabase Setup
-- [ ] Frontend Scaffold
-- [ ] Basic Map Display
-
-### Phase 2: Data Integration (In Progress)
-- [ ] OSM Data Pipeline
-- [ ] Data Display
-- [ ] Manual Data Enhancement
-
 ## 🗺️ Data Sources
 
 - **OpenStreetMap**: Primary source for parking locations and basic attributes
