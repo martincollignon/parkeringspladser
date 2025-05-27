@@ -26,13 +26,13 @@
 		opening_hours: '',
 		capacity: '',
 		mapillary_url: '',
+		website: '',
 		notes: '',
 		latitude: prefilledLocation?.lat || 0,
 		longitude: prefilledLocation?.lng || 0,
 		// Bike shop specific fields
 		bike_types: '',
-		services: '',
-		website: ''
+		services: ''
 	};
 
 	// Form state
@@ -44,7 +44,7 @@
 	let captchaQuestion = '';
 	let captchaAnswer = 0;
 	let userCaptchaAnswer = '';
-	
+
 	function generateCaptcha() {
 		const num1 = Math.floor(Math.random() * 10) + 1;
 		const num2 = Math.floor(Math.random() * 10) + 1;
@@ -102,6 +102,7 @@
 					// Common fields
 					opening_hours: formData.opening_hours.trim() || null,
 					mapillary_url: formData.mapillary_url.trim() || null,
+					website: formData.website.trim() || null,
 					notes: formData.notes.trim() || null,
 					verified: false,
 					// Conditional fields
@@ -112,7 +113,6 @@
 					} : {
 						bike_types: formData.bike_types.trim() || null,
 						services: formData.services.trim() || null,
-						website: formData.website.trim() || null,
 					})
 				},
 				user_id: null, // Anonymous submission
@@ -131,7 +131,7 @@
 
 			submitSuccess = true;
 			dispatch('submitted');
-			
+
 			// Reset form after successful submission
 			setTimeout(() => {
 				resetForm();
@@ -318,6 +318,17 @@
 				/>
 			</div>
 
+			{#if parkingType === 'short-term'}
+    			<div class="space-y-2">
+                    <Label for="website">Hjemmeside (valgfrit)</Label>
+					<Input
+						id="website"
+						bind:value={formData.website}
+						placeholder="f.eks. https://eksempel.dk"
+					/>
+    			</div>
+			{/if}
+
 			<div class="space-y-2">
 				<Label for="notes">Yderligere Noter</Label>
 				<Textarea
@@ -388,16 +399,16 @@
 		z-index: 9998 !important;
 		background-color: rgba(0, 0, 0, 0.4) !important; /* Less opaque so logo shows through */
 	}
-	
+
 	:global([data-dialog-content]) {
 		z-index: 9999 !important;
 	}
-	
+
 	:global(.dialog-overlay) {
 		z-index: 9998 !important;
 		background-color: rgba(0, 0, 0, 0.4) !important;
 	}
-	
+
 	:global(.dialog-content) {
 		z-index: 9999 !important;
 	}
@@ -409,29 +420,29 @@
 		border: 1px solid #d1d5db !important;
 		border-radius: 6px !important;
 	}
-	
+
 	:global(.submission-form input:focus) {
 		border-color: #3b82f6 !important;
 		box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
 		outline: none !important;
 	}
-	
+
 	:global(.submission-form textarea) {
 		background: white !important;
 		color: #1f2937 !important;
 		border: 1px solid #d1d5db !important;
 		border-radius: 6px !important;
 	}
-	
+
 	:global(.submission-form textarea:focus) {
 		border-color: #3b82f6 !important;
 		box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
 		outline: none !important;
 	}
-	
+
 	:global(.submission-form label) {
 		color: #374151 !important;
 		font-weight: 600 !important;
 		font-size: 0.875rem !important;
 	}
-</style> 
+</style>
