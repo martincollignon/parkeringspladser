@@ -20,7 +20,7 @@ Copenhagen faces significant parking challenges, with drivers often spending con
 
 ## 🚀 Live Demo
 
-[Coming Soon - Will be deployed to Vercel]
+[https://www.findparkeringsplads.dk](https://www.findparkeringsplads.dk)
 
 ## 🛠️ Tech Stack
 
@@ -67,8 +67,8 @@ copenhagen-parking-finder/
 
 3. **Set up Supabase**
    ```bash
-   # Install Supabase CLI if not already installed
-   npm install -g @supabase/cli
+   # Install Supabase CLI if not already installed (or symlinked from node_modules)
+   npm install -g @supabase
    
    # Start local Supabase instance
    supabase start
