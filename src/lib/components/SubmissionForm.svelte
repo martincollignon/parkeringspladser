@@ -319,14 +319,14 @@
 			</div>
 
 			{#if parkingType === 'short-term'}
-    			<div class="space-y-2">
-                    <Label for="website">Hjemmeside (valgfrit)</Label>
+				<div class="space-y-2">
+					<Label for="website">Hjemmeside (valgfrit)</Label>
 					<Input
 						id="website"
 						bind:value={formData.website}
 						placeholder="f.eks. https://eksempel.dk"
 					/>
-    			</div>
+				</div>
 			{/if}
 
 			<div class="space-y-2">
