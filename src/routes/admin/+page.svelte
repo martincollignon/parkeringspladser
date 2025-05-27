@@ -359,7 +359,7 @@
 			</div>
 		</div>
 	{:else}
-		<div class="space-y-4">
+		<div class="space-y-4 submissions-container">
 			{#each submissions as submission (submission.id)}
 				<Card.Root class="p-6">
 					<div class="flex justify-between items-start mb-4">
@@ -453,7 +453,41 @@
 </main>
 
 <style>
+	/* Only apply background to this page */
 	:global(body) {
 		background: #fafafa;
+	}
+	
+	/* Admin panel specific styles */
+	main {
+		min-height: 100vh;
+		padding-bottom: 4rem;
+		overflow-y: auto;
+	}
+	
+	/* Ensure proper scrolling for the submissions container */
+	.submissions-container {
+		max-height: calc(100vh - 200px);
+		overflow-y: auto;
+		padding-right: 8px; /* Space for scrollbar */
+	}
+	
+	/* Custom scrollbar styling */
+	.submissions-container::-webkit-scrollbar {
+		width: 6px;
+	}
+	
+	.submissions-container::-webkit-scrollbar-track {
+		background: #f1f1f1;
+		border-radius: 3px;
+	}
+	
+	.submissions-container::-webkit-scrollbar-thumb {
+		background: #c1c1c1;
+		border-radius: 3px;
+	}
+	
+	.submissions-container::-webkit-scrollbar-thumb:hover {
+		background: #a8a8a8;
 	}
 </style> 
