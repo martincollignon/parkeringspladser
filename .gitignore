@@ -1,0 +1,75 @@
+node_modules
+
+# Output
+.output
+.vercel
+.netlify
+.wrangler
+/.svelte-kit
+/build
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Development and temporary files
+*.log
+*.tmp
+*.temp
+.cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Supabase temporary files
+supabase/.temp/
+supabase/.branches/
+
+# Data files (should be downloaded/generated)
+*.csv
+qpark.md
+qpark_structured.json
+qpark_summary.json
+
+# Research and planning files (keep in separate branch or docs)
+deepresearch.md
+parking-deepresearch.md
+execution-plan.md
+
+# Import scripts with hardcoded data
+import_bike_shops*.py
+insert_qpark_to_supabase.py
+parse_qpark_data.py
+
+# Temporary SQL files
+allow_anon_insert.sql
+add_insert_policy.sql
+temp_rls_policy.sql
+
+# Setup scripts with sensitive data
+add_service_key.py
+setup_env.py
+apply_migration.py
+
+# Documentation that's too specific to development process
+README_QPARK_IMPORT.md
+EMAIL_NOTIFICATIONS_SETUP.md
+SETUP.md
+
+# Test and debug scripts
+scripts/test-*.js
+scripts/debug-*.js
+scripts/improved-overpass-test.js

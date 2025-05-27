@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+@plugin "tailwindcss-animate";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+:root {
+  /* London Underground Live inspired dark theme */
+  --background: hsl(220, 20%, 8%);
+  --foreground: hsl(0, 0%, 95%);
+  --card: hsl(220, 20%, 10%);
+  --card-foreground: hsl(0, 0%, 95%);
+  --popover: hsl(220, 20%, 12%);
+  --popover-foreground: hsl(0, 0%, 95%);
+  --primary: hsl(210, 100%, 60%);
+  --primary-foreground: hsl(220, 20%, 8%);
+  --secondary: hsl(220, 15%, 15%);
+  --secondary-foreground: hsl(0, 0%, 85%);
+  --muted: hsl(220, 15%, 18%);
+  --muted-foreground: hsl(0, 0%, 65%);
+  --accent: hsl(220, 15%, 20%);
+  --accent-foreground: hsl(0, 0%, 90%);
+  --destructive: hsl(0, 70%, 55%);
+  --destructive-foreground: hsl(0, 0%, 95%);
+  --border: hsl(220, 15%, 20%);
+  --input: hsl(220, 15%, 15%);
+  --ring: hsl(210, 100%, 60%);
+  --chart-1: hsl(12, 76%, 61%);
+  --chart-2: hsl(173, 58%, 39%);
+  --chart-3: hsl(197, 37%, 24%);
+  --chart-4: hsl(43, 74%, 66%);
+  --chart-5: hsl(27, 87%, 67%);
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: hsl(220, 20%, 8%);
+  --foreground: hsl(0, 0%, 95%);
+  --card: hsl(220, 20%, 10%);
+  --card-foreground: hsl(0, 0%, 95%);
+  --popover: hsl(220, 20%, 12%);
+  --popover-foreground: hsl(0, 0%, 95%);
+  --primary: hsl(210, 100%, 60%);
+  --primary-foreground: hsl(220, 20%, 8%);
+  --secondary: hsl(220, 15%, 15%);
+  --secondary-foreground: hsl(0, 0%, 85%);
+  --muted: hsl(220, 15%, 18%);
+  --muted-foreground: hsl(0, 0%, 65%);
+  --accent: hsl(220, 15%, 20%);
+  --accent-foreground: hsl(0, 0%, 90%);
+  --destructive: hsl(0, 70%, 55%);
+  --destructive-foreground: hsl(0, 0%, 95%);
+  --border: hsl(220, 15%, 20%);
+  --input: hsl(220, 15%, 15%);
+  --ring: hsl(210, 100%, 60%);
+  --chart-1: hsl(220, 70%, 50%);
+  --chart-2: hsl(160, 60%, 45%);
+  --chart-3: hsl(30, 80%, 55%);
+  --chart-4: hsl(280, 65%, 60%);
+  --chart-5: hsl(340, 75%, 55%);
+}
+
+/* London Underground Live inspired global styles */
+* {
+  box-sizing: border-box;
+  /* Improve touch interactions on mobile */
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  /* Prevent text selection on UI elements */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection for content areas */
+p, span, div[contenteditable], input, textarea {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+  overflow: hidden;
+  /* Prevent mobile zoom on input focus */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Improve mobile performance */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Prevent overscroll bounce on iOS */
+  overscroll-behavior: none;
+}
+
+#app {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+/* Typography inspired by London Underground Live */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+/* Smooth transitions for all interactive elements */
+button, a, .interactive {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(220, 15%, 15%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(220, 15%, 25%);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(220, 15%, 35%);
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
