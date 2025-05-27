@@ -77,7 +77,7 @@ copenhagen-parking-finder/
 4. **Environment setup**
    ```bash
    cp env.example .env.local
-   # Edit .env.local with your Supabase credentials
+   # Edit .env.local with your Supabase credentials and optional analytics
    ```
 
 5. **Start development server**
@@ -131,6 +131,33 @@ We welcome contributions from the community! This project follows the principles
 ## 📱 Mobile Optimization
 
 This application is designed mobile-first, ensuring excellent performance and usability on smartphones where users typically search for parking while on the go.
+
+## 📊 Privacy-Friendly Analytics
+
+This project includes optional **Umami Analytics** integration - a privacy-focused, open-source alternative to Google Analytics that:
+
+- ✅ **No cookies required** - GDPR compliant by design
+- ✅ **No personal data collection** - Respects user privacy
+- ✅ **Lightweight** - Minimal impact on site performance
+- ✅ **Open source** - Transparent and auditable
+
+### Analytics Setup (Optional)
+
+To enable analytics, add these environment variables to your `.env.local`:
+
+```bash
+# Umami Analytics (optional - leave empty to disable)
+VITE_UMAMI_URL=https://cloud.umami.is
+VITE_UMAMI_WEBSITE_ID=your-website-id
+# VITE_UMAMI_DOMAINS=your-domain.com  # Optional: restrict to specific domains
+```
+
+**Options for Umami Analytics:**
+1. **Umami Cloud**: Hosted service starting at €9/month for 10k pageviews
+2. **Self-hosted**: Free, deploy on your own infrastructure
+3. **Disable**: Leave variables empty for no analytics
+
+Learn more at [umami.is](https://umami.is)
 
 ## 🌍 Focus Area
 
