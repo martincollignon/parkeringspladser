@@ -37,7 +37,7 @@
 		"@tailwindcss/typography": "^0.5.16",
 		"@types/maplibre-gl": "^1.13.2",
 		"autoprefixer": "^10.4.21",
-		"bits-ui": "^0.22.0",
+		"bits-ui": "^2.2.0",
 		"clsx": "^2.1.1",
 		"lucide-svelte": "^0.511.0",
 		"postcss": "^8.5.3",
