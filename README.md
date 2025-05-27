@@ -164,7 +164,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - 🐛 [Report bugs](https://github.com/martincollignon/parkeringspladser/issues/new?template=bug_report.md)
 - 💡 [Request features](https://github.com/martincollignon/parkeringspladser/issues/new?template=feature_request.md)
-- 💬 [Join discussions](https://github.com/martincollignon/parkeringspladser/discussions)
 
 ---
 
