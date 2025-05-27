@@ -70,7 +70,7 @@ copenhagen-parking-finder/
    # Install Supabase CLI if not already installed (or symlinked from node_modules)
    npm install -g @supabase
    
-   # Start local Supabase instance
+   # Start local Supabase instance (make sure Docker is running)
    supabase start
    ```
 
