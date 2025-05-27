@@ -3,7 +3,14 @@
 	"version": "0.1.0",
 	"description": "A mobile-optimized web application helping drivers find private, fee-based parking in Copenhagen when public street parking is scarce.",
 	"type": "module",
-	"keywords": ["parking", "copenhagen", "svelte", "sveltekit", "maps", "openstreetmap"],
+	"keywords": [
+		"parking",
+		"copenhagen",
+		"svelte",
+		"sveltekit",
+		"maps",
+		"openstreetmap"
+	],
 	"author": "Martin Collignon",
 	"license": "MIT",
 	"repository": {
@@ -30,7 +37,7 @@
 		"@tailwindcss/typography": "^0.5.16",
 		"@types/maplibre-gl": "^1.13.2",
 		"autoprefixer": "^10.4.21",
-		"bits-ui": "^0.22.0",
+		"bits-ui": "^2.2.0",
 		"clsx": "^2.1.1",
 		"lucide-svelte": "^0.511.0",
 		"postcss": "^8.5.3",
