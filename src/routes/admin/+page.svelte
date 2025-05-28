@@ -19,6 +19,8 @@
 	let password = '';
 	let authError = '';
 	let isSigningIn = false;
+	let isSendingMagicLink = false;
+	let magicLinkSent = false;
 
 	// Check if user is authenticated
 	async function checkAuth() {
@@ -56,6 +58,32 @@
 		}
 
 		isSigningIn = false;
+	}
+
+	// Sign in with magic link
+	async function signInWithMagicLink() {
+		if (!email) {
+			authError = 'Udfyld venligst email';
+			return;
+		}
+
+		isSendingMagicLink = true;
+		authError = '';
+
+		const { error } = await supabase.auth.signInWithOtp({
+			email,
+			options: {
+				emailRedirectTo: `${window.location.origin}/auth/callback?next=/admin`
+			}
+		});
+
+		if (error) {
+			authError = error.message;
+		} else {
+			magicLinkSent = true;
+		}
+
+		isSendingMagicLink = false;
 	}
 
 	// Sign out
@@ -272,46 +300,87 @@
 					</Card.Description>
 				</Card.Header>
 				<Card.Content>
-					<form on:submit|preventDefault={signIn} class="space-y-4">
-						<div class="space-y-2">
-							<Label for="email">Email</Label>
-							<Input
-								id="email"
-								type="email"
-								bind:value={email}
-								placeholder="din@email.dk"
-								required
-							/>
-						</div>
-						<div class="space-y-2">
-							<Label for="password">Adgangskode</Label>
-							<Input
-								id="password"
-								type="password"
-								bind:value={password}
-								placeholder="••••••••"
-								required
-							/>
-						</div>
-						
-						{#if authError}
-							<div class="text-red-600 text-sm bg-red-50 border border-red-200 p-3 rounded">
-								{authError}
+					{#if magicLinkSent}
+						<div class="text-center space-y-4">
+							<div class="text-green-600 text-sm bg-green-50 border border-green-200 p-3 rounded">
+								✓ Magic link sendt til {email}! Tjek din email og klik på linket for at logge ind.
 							</div>
-						{/if}
-						
+							<Button 
+								variant="outline" 
+								on:click={() => { magicLinkSent = false; authError = ''; }}
+								class="w-full"
+							>
+								← Tilbage til login
+							</Button>
+						</div>
+					{:else}
+						<form on:submit|preventDefault={signIn} class="space-y-4">
+							<div class="space-y-2">
+								<Label for="email">Email</Label>
+								<Input
+									id="email"
+									type="email"
+									bind:value={email}
+									placeholder="din@email.dk"
+									required
+								/>
+							</div>
+							<div class="space-y-2">
+								<Label for="password">Adgangskode</Label>
+								<Input
+									id="password"
+									type="password"
+									bind:value={password}
+									placeholder="••••••••"
+									required
+								/>
+							</div>
+							
+							{#if authError}
+								<div class="text-red-600 text-sm bg-red-50 border border-red-200 p-3 rounded">
+									{authError}
+								</div>
+							{/if}
+							
+							<Button 
+								type="submit" 
+								class="w-full" 
+								disabled={isSigningIn}
+							>
+								{#if isSigningIn}
+									Logger ind...
+								{:else}
+									Log ind med adgangskode
+								{/if}
+							</Button>
+						</form>
+
+						<div class="relative my-4">
+							<div class="absolute inset-0 flex items-center">
+								<span class="w-full border-t" />
+							</div>
+							<div class="relative flex justify-center text-xs uppercase">
+								<span class="bg-background px-2 text-muted-foreground">Eller</span>
+							</div>
+						</div>
+
 						<Button 
-							type="submit" 
-							class="w-full" 
-							disabled={isSigningIn}
+							variant="outline"
+							on:click={signInWithMagicLink}
+							disabled={isSendingMagicLink || !email}
+							class="w-full"
 						>
-							{#if isSigningIn}
-								Logger ind...
+							{#if isSendingMagicLink}
+								Sender magic link...
 							{:else}
-								Log ind
+								📧 Send magic link
 							{/if}
 						</Button>
-					</form>
+
+						<p class="text-xs text-muted-foreground text-center mt-2">
+							Indtast din email og klik "Send magic link" for at få et login-link sendt til din email.
+						</p>
+					{/if}
 				</Card.Content>
 			</Card.Root>
 			

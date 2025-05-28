@@ -1,7 +1,27 @@
 import { createClient } from '@supabase/supabase-js';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
+import { browser } from '$app/environment';
 
-export const supabase = createClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY);
+// Get the current URL for auth redirects
+const getURL = () => {
+    // Try to get the site URL from environment, fallback to localhost
+    const siteUrl = browser && typeof window !== 'undefined' 
+        ? window.location.origin 
+        : 'http://localhost:5173';
+    
+    // Make sure to include `https://` when not localhost.
+    const url = siteUrl.includes('http') ? siteUrl : `https://${siteUrl}`;
+    // Make sure to include a trailing `/`.
+    return url.charAt(url.length - 1) === '/' ? url : `${url}/`;
+};
+
+export const supabase = createClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
+    auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true
+    }
+});
 
 // Type definitions for our database tables
 export interface ParkingLocation {
