@@ -387,6 +387,20 @@
 					{showLongTermParking ? "Tilføj Cykelbutik" : "Tilføj Parkeringsdata"}
 				</span>
 			</button>
+
+			<!-- GitHub contribution link -->
+			<a 
+				href="https://github.com/martincollignon/parkeringspladser"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="github-link"
+				title="Hjælp med at forbedre projektet på GitHub"
+			>
+				<svg class="github-icon" viewBox="0 0 24 24" fill="currentColor">
+					<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+				</svg>
+				<span class="github-text">Bidrag til projektet</span>
+			</a>
 		</div>
 	{/if}
 
@@ -623,7 +637,7 @@
 		display: none;
 	}
 
-	/* Floating header overlay - London Underground Live style */
+	/* Floating header overlay - inspired by London Underground Live */
 	.header-overlay {
 		position: absolute;
 		top: 24px;
@@ -862,9 +876,9 @@
 		background: rgba(255, 255, 255, 0.05);
 		border: 1px solid rgba(255, 255, 255, 0.15);
 		color: rgba(255, 255, 255, 0.9);
-		padding: 10px 14px;
+		padding: 8px 12px;
 		border-radius: 8px;
-		font-size: 0.8rem;
+		font-size: 0.75rem;
 		font-weight: 500;
 		cursor: pointer;
 		transition: all 0.2s ease;
@@ -880,8 +894,41 @@
 	}
 
 	.add-icon {
-		width: 14px;
-		height: 14px;
+		width: 12px;
+		height: 12px;
+		opacity: 0.8;
+	}
+
+	.github-link {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		background: rgba(88, 166, 255, 0.1);
+		border: 1px solid rgba(88, 166, 255, 0.3);
+		color: rgba(88, 166, 255, 0.9);
+		padding: 8px 12px;
+		border-radius: 8px;
+		font-size: 0.75rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		justify-content: center;
+		text-align: center;
+		white-space: nowrap;
+		text-decoration: none;
+	}
+
+	.github-link:hover {
+		background: rgba(88, 166, 255, 0.2);
+		border-color: rgba(88, 166, 255, 0.5);
+		color: #58a6ff;
+		text-decoration: none;
+		transform: translateY(-1px);
+	}
+
+	.github-icon {
+		width: 12px;
+		height: 12px;
 		opacity: 0.8;
 	}
 
@@ -1321,373 +1368,6 @@
 		}
 	}
 
-	/* Bike Dialog Styling - London Underground Live inspired */
-	:global(.bike-dialog) {
-		/* Reset and override ALL default dialog styles */
-		all: unset !important;
-		display: block !important;
-		
-		/* Size and spacing */
-		width: 100% !important;
-		max-width: 28rem !important;
-		max-height: 80vh !important;
-		padding: 1.5rem !important;
-		box-sizing: border-box !important;
-		
-		/* Positioning - ensure perfect centering above overlay */
-		position: fixed !important;
-		top: 50% !important;
-		left: 50% !important;
-		transform: translate(-50%, -50%) !important;
-		z-index: 9999 !important;
-		
-		/* London Underground Live styling */
-		background: rgba(15, 20, 30, 0.95) !important;
-		backdrop-filter: blur(24px) !important;
-		border: 1px solid rgba(255, 255, 255, 0.12) !important;
-		border-radius: 12px !important;
-		color: white !important;
-		overflow: hidden !important;
-		
-		/* Enhanced shadows matching our theme */
-		box-shadow: 
-			0 8px 32px rgba(0, 0, 0, 0.6),
-			0 1px 0 rgba(255, 255, 255, 0.08) inset !important;
-	}
-	
-	/* Ensure the dialog overlay has proper z-index */
-	:global([data-bits-dialog-overlay]) {
-		z-index: 9998 !important;
-	}
-	
-	/* Make dialog content scrollable but keep structure intact */
-	:global(.bike-dialog) {
-		display: flex !important;
-		flex-direction: column !important;
-	}
-
-	:global(.bike-dialog .space-y-6) {
-		flex: 1 !important;
-		overflow-y: auto !important;
-		max-height: calc(85vh - 8rem) !important;
-	}
-
-	/* Ensure proper spacing on smaller screens */
-	@media (max-width: 640px) {
-		:global(.bike-dialog) {
-			max-width: calc(100vw - 3rem) !important;
-			margin: 1.5rem !important;
-			padding: 1.5rem !important;
-			max-height: 90vh !important;
-		}
-
-		:global(.bike-dialog .space-y-6) {
-			max-height: calc(90vh - 6rem) !important;
-		}
-	}
-
-	/* Extra small screens - more margin */
-	@media (max-width: 480px) {
-		:global(.bike-dialog) {
-			max-width: calc(100vw - 2rem) !important;
-			margin: 1rem !important;
-			padding: 1.25rem !important;
-		}
-	}
-
-	:global(.bike-dialog:hover) {
-		background: rgba(20, 25, 35, 0.95) !important;
-		box-shadow: 
-			0 12px 40px rgba(0, 0, 0, 0.7),
-			0 1px 0 rgba(255, 255, 255, 0.12) inset !important;
-	}
-
-
-
-	/* Additional mobile typography adjustments */
-	@media (max-width: 768px) {
-		:global(.bike-dialog .text-2xl) {
-			font-size: 1.5rem !important;
-		}
-		
-		:global(.bike-dialog .text-xl) {
-			font-size: 1.125rem !important;
-		}
-		
-		/* Mobile close button styling for bike dialog */
-		:global(.bike-dialog [data-bits-dialog-close]) {
-			position: absolute !important;
-			top: 1rem !important;
-			right: 1rem !important;
-			width: 44px !important;
-			height: 44px !important;
-			min-width: 44px !important;
-			min-height: 44px !important;
-			border-radius: 50% !important;
-			background: rgba(0, 0, 0, 0.6) !important;
-			backdrop-filter: blur(8px) !important;
-			border: 1px solid rgba(255, 255, 255, 0.2) !important;
-			color: #ffffff !important;
-			display: flex !important;
-			align-items: center !important;
-			justify-content: center !important;
-			cursor: pointer !important;
-			z-index: 1000 !important;
-			pointer-events: auto !important;
-			opacity: 1 !important;
-			transition: all 0.2s ease !important;
-			touch-action: manipulation !important;
-		}
-		
-		:global(.bike-dialog [data-bits-dialog-close]:hover),
-		:global(.bike-dialog [data-bits-dialog-close]:active) {
-			background: rgba(0, 0, 0, 0.8) !important;
-			border-color: rgba(255, 255, 255, 0.3) !important;
-			transform: scale(1.05) !important;
-		}
-		
-		:global(.bike-dialog [data-bits-dialog-close] svg) {
-			width: 20px !important;
-			height: 20px !important;
-		}
-	}
-
-	/* Desktop close button styling for bike dialog */
-	@media (min-width: 769px) {
-		:global(.bike-dialog [data-bits-dialog-close]) {
-			width: 32px !important;
-			height: 32px !important;
-			min-width: 32px !important;
-			min-height: 32px !important;
-			top: 0.75rem !important;
-			right: 0.75rem !important;
-		}
-		
-		:global(.bike-dialog [data-bits-dialog-close] svg) {
-			width: 16px !important;
-			height: 16px !important;
-		}
-	}
-
-	/* Car Owner Dialog Styling - London Underground Live inspired */
-	:global(.car-owner-dialog) {
-		/* Reset and override ALL default dialog styles */
-		all: unset !important;
-		display: block !important;
-		
-		/* Size and spacing */
-		width: 100% !important;
-		max-width: 28rem !important;
-		max-height: 80vh !important;
-		padding: 1.5rem !important;
-		padding-right: 2.5rem !important; /* Extra padding to prevent overlap with close button */
-		box-sizing: border-box !important;
-		
-		/* Positioning - ensure perfect centering above overlay */
-		position: fixed !important;
-		top: 50% !important;
-		left: 50% !important;
-		transform: translate(-50%, -50%) !important;
-		z-index: 9999 !important;
-		
-		/* London Underground Live styling */
-		background: rgba(15, 20, 30, 0.95) !important;
-		backdrop-filter: blur(24px) !important;
-		border: 1px solid rgba(255, 255, 255, 0.12) !important;
-		border-radius: 12px !important;
-		color: white !important;
-		overflow: hidden !important;
-		
-		/* Enhanced shadows matching our theme */
-		box-shadow: 
-			0 8px 32px rgba(0, 0, 0, 0.6),
-			0 1px 0 rgba(255, 255, 255, 0.08) inset !important;
-	}
-
-	/* Make dialog content scrollable but keep structure intact */
-	:global(.car-owner-dialog) {
-		display: flex !important;
-		flex-direction: column !important;
-	}
-
-	:global(.car-owner-dialog .space-y-6) {
-		flex: 1 !important;
-		overflow-y: auto !important;
-		max-height: calc(80vh - 8rem) !important;
-	}
-
-	/* Fix title overlap with close button */
-	:global(.car-owner-dialog [data-bits-dialog-title]) {
-		padding-right: 2rem !important;
-		margin-right: 0 !important;
-	}
-
-	/* Ensure proper spacing on smaller screens */
-	@media (max-width: 768px) {
-		:global(.car-owner-dialog) {
-			max-width: calc(100vw - 2rem) !important;
-			margin: 1rem !important;
-			padding: 1rem !important;
-			padding-right: 2rem !important; /* Maintain right padding for close button */
-			max-height: 85vh !important;
-			font-size: 14px !important;
-		}
-
-		:global(.car-owner-dialog .space-y-6) {
-			max-height: calc(85vh - 6rem) !important;
-		}
-	}
-
-	/* Small mobile screens */
-	@media (max-width: 480px) {
-		:global(.car-owner-dialog) {
-			max-width: calc(100vw - 1.5rem) !important;
-			margin: 0.75rem !important;
-			padding: 0.875rem !important;
-			padding-right: 1.75rem !important; /* Maintain right padding for close button */
-			max-height: 90vh !important;
-			font-size: 13px !important;
-		}
-
-		:global(.car-owner-dialog .space-y-6) {
-			max-height: calc(90vh - 5rem) !important;
-		}
-	}
-
-	/* Extra small screens */
-	@media (max-width: 360px) {
-		:global(.car-owner-dialog) {
-			max-width: calc(100vw - 1rem) !important;
-			margin: 0.5rem !important;
-			padding: 0.75rem !important;
-			padding-right: 1.5rem !important; /* Maintain right padding for close button */
-			max-height: 95vh !important;
-			font-size: 12px !important;
-		}
-
-		:global(.car-owner-dialog .space-y-6) {
-			max-height: calc(95vh - 4rem) !important;
-		}
-	}
-
-	:global(.car-owner-dialog:hover) {
-		background: rgba(20, 25, 35, 0.95) !important;
-		box-shadow: 
-			0 12px 40px rgba(0, 0, 0, 0.7),
-			0 1px 0 rgba(255, 255, 255, 0.12) inset !important;
-	}
-
-	/* Additional mobile typography adjustments */
-	@media (max-width: 768px) {
-		:global(.car-owner-dialog .text-2xl) {
-			font-size: 1.25rem !important;
-			line-height: 1.3 !important;
-		}
-		
-		:global(.car-owner-dialog .text-lg) {
-			font-size: 1rem !important;
-			line-height: 1.4 !important;
-		}
-
-		:global(.car-owner-dialog .text-sm) {
-			font-size: 0.8rem !important;
-		}
-
-		:global(.car-owner-dialog .py-6) {
-			padding-top: 1rem !important;
-			padding-bottom: 1rem !important;
-		}
-
-		:global(.car-owner-dialog .py-4) {
-			padding-top: 0.75rem !important;
-			padding-bottom: 0.75rem !important;
-		}
-
-		:global(.car-owner-dialog .px-6) {
-			padding-left: 1rem !important;
-			padding-right: 1rem !important;
-		}
-
-		/* Improve button styling on mobile */
-		:global(.car-owner-dialog button) {
-			font-size: 0.875rem !important;
-			padding: 0.75rem 1rem !important;
-		}
-
-		/* Mobile close button styling for car dialog */
-		:global(.car-owner-dialog [data-bits-dialog-close]) {
-			position: absolute !important;
-			top: 1rem !important;
-			right: 1rem !important;
-			width: 44px !important;
-			height: 44px !important;
-			min-width: 44px !important;
-			min-height: 44px !important;
-			border-radius: 50% !important;
-			background: rgba(0, 0, 0, 0.6) !important;
-			backdrop-filter: blur(8px) !important;
-			border: 1px solid rgba(255, 255, 255, 0.2) !important;
-			color: #ffffff !important;
-			display: flex !important;
-			align-items: center !important;
-			justify-content: center !important;
-			cursor: pointer !important;
-			z-index: 1000 !important;
-			pointer-events: auto !important;
-			opacity: 1 !important;
-			transition: all 0.2s ease !important;
-			touch-action: manipulation !important;
-		}
-		
-		:global(.car-owner-dialog [data-bits-dialog-close]:hover),
-		:global(.car-owner-dialog [data-bits-dialog-close]:active) {
-			background: rgba(0, 0, 0, 0.8) !important;
-			border-color: rgba(255, 255, 255, 0.3) !important;
-			transform: scale(1.05) !important;
-		}
-		
-		:global(.car-owner-dialog [data-bits-dialog-close] svg) {
-			width: 20px !important;
-			height: 20px !important;
-		}
-	}
-
-	@media (max-width: 480px) {
-		:global(.car-owner-dialog .text-2xl) {
-			font-size: 1.125rem !important;
-			line-height: 1.2 !important;
-		}
-		
-		:global(.car-owner-dialog .text-lg) {
-			font-size: 0.9rem !important;
-			line-height: 1.3 !important;
-		}
-
-		:global(.car-owner-dialog .text-sm) {
-			font-size: 0.75rem !important;
-		}
-
-		:global(.car-owner-dialog .space-y-6 > *) {
-			margin-bottom: 1rem !important;
-		}
-	}
-
-	@media (max-width: 360px) {
-		:global(.car-owner-dialog .text-2xl) {
-			font-size: 1rem !important;
-			line-height: 1.2 !important;
-		}
-		
-		:global(.car-owner-dialog .text-lg) {
-			font-size: 0.85rem !important;
-			line-height: 1.3 !important;
-		}
-
-		:global(.car-owner-dialog .text-sm) {
-			font-size: 0.7rem !important;
-		}
-	}
-
 	/* Desktop: shift elements left when side tray is open */
 	@media (min-width: 769px) {
 		/* Shift map controls left when tray is open */
@@ -1796,5 +1476,38 @@
 	:global(.car-owner-dialog > button:first-child:not(.custom-close)),
 	:global(.car-owner-dialog > *:last-child:not(.custom-close)) {
 		display: none !important;
+	}
+
+	.github-link {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		background: rgba(88, 166, 255, 0.1);
+		border: 1px solid rgba(88, 166, 255, 0.3);
+		color: rgba(88, 166, 255, 0.9);
+		padding: 8px 12px;
+		border-radius: 8px;
+		font-size: 0.75rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		justify-content: center;
+		text-align: center;
+		white-space: nowrap;
+		text-decoration: none;
+	}
+
+	.github-link:hover {
+		background: rgba(88, 166, 255, 0.2);
+		border-color: rgba(88, 166, 255, 0.5);
+		color: #58a6ff;
+		text-decoration: none;
+		transform: translateY(-1px);
+	}
+
+	.github-icon {
+		width: 12px;
+		height: 12px;
+		opacity: 0.8;
 	}
 </style>
