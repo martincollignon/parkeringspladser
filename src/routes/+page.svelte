@@ -239,12 +239,55 @@
 		loadParkingData();
 	}
 
+	// Manual close functions for debugging
+	function closeBikeDialog() {
+		console.log('🚲 Manually closing bike dialog - current state:', showBikeMessageDialog);
+		showBikeMessageDialog = false;
+		console.log('🚲 After closing - new state:', showBikeMessageDialog);
+	}
+	
+	function closeCarDialog() {
+		console.log('🚗 Manually closing car dialog - current state:', showCarOwnerDialog);
+		showCarOwnerDialog = false;
+		console.log('🚗 After closing - new state:', showCarOwnerDialog);
+	}
+
+	// Remove default Dialog close buttons after dialogs are shown
+	function removeDefaultCloseButtons() {
+		setTimeout(() => {
+			// Remove default close buttons from bike dialog
+			const bikeDialog = document.querySelector('.bike-dialog');
+			if (bikeDialog) {
+				const defaultButtons = bikeDialog.querySelectorAll('button:not(.custom-close)');
+				defaultButtons.forEach(btn => {
+					if (btn.querySelector('svg') || btn.getAttribute('aria-label')?.toLowerCase().includes('close')) {
+						btn.remove();
+					}
+				});
+			}
+			
+			// Remove default close buttons from car dialog
+			const carDialog = document.querySelector('.car-owner-dialog');
+			if (carDialog) {
+				const defaultButtons = carDialog.querySelectorAll('button:not(.custom-close)');
+				defaultButtons.forEach(btn => {
+					if (btn.querySelector('svg') || btn.getAttribute('aria-label')?.toLowerCase().includes('close')) {
+						btn.remove();
+					}
+				});
+			}
+		}, 100);
+	}
+
+	// Watch for dialog state changes and remove default buttons
+	$: if (showBikeMessageDialog || showCarOwnerDialog) {
+		removeDefaultCloseButtons();
+	}
+
 	onMount(() => {
 		loadParkingData();
-		// Show the cheeky car owner message after a short delay
-		setTimeout(() => {
-			showCarOwnerDialog = true;
-		}, 2000);
+		// Show the cheeky car owner message immediately
+		showCarOwnerDialog = true;
 	});
 
 	// Track if we've already initialized the map with data
@@ -408,43 +451,70 @@
 
 	<!-- Cheeky Bike Message Dialog -->
 	<Dialog.Root bind:open={showBikeMessageDialog}>
-		<Dialog.Content class="bike-dialog">
-			<Dialog.Header>
-				<Dialog.Title class="text-2xl font-bold flex items-center gap-3 mb-4">
-					<span class="text-4xl">🚲</span>
-					<div class="flex flex-col">
-						<span class="text-white">
-							Langsigtet Løsning
-						</span>
-						<span class="text-sm font-normal text-gray-400 uppercase tracking-wider">
-							CYKEL I KØBENHAVN
-						</span>
-					</div>
-				</Dialog.Title>
-			</Dialog.Header>
+		<Dialog.Content class="bike-dialog max-w-md">
+			<!-- Custom close button -->
+			<button 
+				on:click={(e) => {
+					e.preventDefault();
+					e.stopPropagation();
+					console.log('🚲 Close button clicked!', e);
+					closeBikeDialog();
+				}}
+				class="custom-close absolute top-4 right-4 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 flex items-center justify-center transition-colors text-white border border-white/20 hover:border-white/40"
+				style="z-index: 99999 !important; pointer-events: auto !important;"
+				aria-label="Close dialog"
+			>
+				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+				</svg>
+			</button>
 			
-			<div class="space-y-6">
-				<div class="text-center py-6">
-					<p class="text-xl leading-relaxed text-gray-100 mb-4">
-						Du kan lede efter parkering <em class="text-yellow-400 font-semibold">hele dit liv</em>...
-					</p>
-					<div class="flex items-center justify-center gap-4 my-6">
-						<div class="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent flex-1"></div>
-						<span class="text-2xl">🤔</span>
-						<div class="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent flex-1"></div>
+			<div class="text-center space-y-6">
+				<Dialog.Header>
+					<Dialog.Title class="text-2xl font-bold flex items-center gap-3 mb-4">
+						<span class="text-4xl">🚲</span>
+						<div class="flex flex-col">
+							<span class="text-white">
+								Langsigtet Løsning
+							</span>
+							<span class="text-sm font-normal text-gray-400 uppercase tracking-wider">
+								CYKEL I KØBENHAVN
+							</span>
+						</div>
+					</Dialog.Title>
+				</Dialog.Header>
+				
+				<div class="space-y-6">
+					<div class="text-center py-6">
+						<p class="text-xl leading-relaxed text-gray-100 mb-4">
+							Du kan lede efter parkering <em class="text-yellow-400 font-semibold">hele dit liv</em>...
+						</p>
+						<div class="flex items-center justify-center gap-4 my-6">
+							<div class="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent flex-1"></div>
+							<span class="text-2xl">🤔</span>
+							<div class="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent flex-1"></div>
+						</div>
+						<p class="text-xl leading-relaxed text-gray-100">
+							...eller du kan <strong class="text-green-400">slippe af med bilen</strong> og aldrig bekymre dig om parkering igen! 
+						</p>
 					</div>
-					<p class="text-xl leading-relaxed text-gray-100">
-						...eller du kan <strong class="text-green-400">slippe af med bilen</strong> og aldrig bekymre dig om parkering igen! 
+
+					<p class="text-sm text-gray-600 mb-4">
+						Cykler er en fantastisk måde at komme rundt i København på! 🚴‍♀️
 					</p>
 				</div>
-
-
 			</div>
 
 			<Dialog.Footer class="mt-8">
 				<Button 
-					on:click={() => showBikeMessageDialog = false}
+					on:click={(e) => {
+						e.preventDefault();
+						e.stopPropagation();
+						console.log('🚲 CTA button clicked!');
+						closeBikeDialog();
+					}}
 					class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-green-500/25"
+					style="z-index: 99999 !important; pointer-events: auto !important; position: relative !important;"
 				>
 					<span class="flex items-center justify-center gap-2">
 						<span>Fantastisk! Vis mig cykelbutikker</span>
@@ -457,22 +527,39 @@
 
 	<!-- Cheeky Car Owner Message Dialog -->
 	<Dialog.Root bind:open={showCarOwnerDialog}>
-		<Dialog.Content class="car-owner-dialog">
-			<Dialog.Header>
-				<Dialog.Title class="text-2xl font-bold flex items-center gap-3 mb-4">
-					<span class="text-4xl">🚗</span>
-					<div class="flex flex-col">
-						<span class="text-white">
-							Parkering i København
-						</span>
-						<span class="text-sm font-normal text-gray-400 uppercase tracking-wider">
-							BETALTE ALTERNATIVER
-						</span>
-					</div>
-				</Dialog.Title>
-			</Dialog.Header>
+		<Dialog.Content class="car-owner-dialog max-w-lg">
+			<!-- Custom close button -->
+			<button 
+				on:click={(e) => {
+					e.preventDefault();
+					e.stopPropagation();
+					console.log('🚗 Close button clicked!', e);
+					closeCarDialog();
+				}}
+				class="custom-close absolute top-4 right-4 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 flex items-center justify-center transition-colors text-white border border-white/20 hover:border-white/40"
+				style="z-index: 99999 !important; pointer-events: auto !important;"
+				aria-label="Close dialog"
+			>
+				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+				</svg>
+			</button>
 			
 			<div class="space-y-6">
+				<Dialog.Header>
+					<Dialog.Title class="text-2xl font-bold flex items-center gap-3 mb-4">
+						<span class="text-4xl">🚗</span>
+						<div class="flex flex-col">
+							<span class="text-white">
+								Parkering i København
+							</span>
+							<span class="text-sm font-normal text-gray-400 uppercase tracking-wider">
+								BETALTE ALTERNATIVER
+							</span>
+						</div>
+					</Dialog.Title>
+				</Dialog.Header>
+				
 				<div class="text-center py-6">
 					<p class="text-lg leading-relaxed text-gray-100 mb-4">
 						Hvis du er træt af at køre rundt for at finde en parkeringsplads, så tøv ikke med at bruge de mange <em class="text-yellow-400 font-semibold">betalte alternativer</em>, der er tomme det meste af tiden.
@@ -490,10 +577,16 @@
 
 			<Dialog.Footer class="mt-6 pt-4 border-t border-gray-700/50">
 				<Button 
-					on:click={() => showCarOwnerDialog = false}
+					on:click={(e) => {
+						e.preventDefault();
+						e.stopPropagation();
+						console.log('🚗 CTA button clicked!');
+						closeCarDialog();
+					}}
 					class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-lg hover:shadow-blue-500/25 border border-blue-500/30"
+					style="z-index: 99999 !important; pointer-events: auto !important; position: relative !important;"
 				>
-					<span class="flex items-center justify-center gap-2 text-sm">
+					<span class="flex items-center justify-center gap-2">
 						<span>Forstået! Vis mig parkeringsmulighederne</span>
 						<span class="text-lg">🚗</span>
 					</span>
@@ -1339,10 +1432,10 @@
 			align-items: center !important;
 			justify-content: center !important;
 			cursor: pointer !important;
-			z-index: 10001 !important;
-			transition: all 0.2s ease !important;
-			opacity: 1 !important;
+			z-index: 1000 !important;
 			pointer-events: auto !important;
+			opacity: 1 !important;
+			transition: all 0.2s ease !important;
 			touch-action: manipulation !important;
 		}
 		
@@ -1356,6 +1449,23 @@
 		:global(.bike-dialog [data-bits-dialog-close] svg) {
 			width: 20px !important;
 			height: 20px !important;
+		}
+	}
+
+	/* Desktop close button styling for bike dialog */
+	@media (min-width: 769px) {
+		:global(.bike-dialog [data-bits-dialog-close]) {
+			width: 32px !important;
+			height: 32px !important;
+			min-width: 32px !important;
+			min-height: 32px !important;
+			top: 0.75rem !important;
+			right: 0.75rem !important;
+		}
+		
+		:global(.bike-dialog [data-bits-dialog-close] svg) {
+			width: 16px !important;
+			height: 16px !important;
 		}
 	}
 
@@ -1522,10 +1632,10 @@
 			align-items: center !important;
 			justify-content: center !important;
 			cursor: pointer !important;
-			z-index: 10001 !important;
-			transition: all 0.2s ease !important;
-			opacity: 1 !important;
+			z-index: 1000 !important;
 			pointer-events: auto !important;
+			opacity: 1 !important;
+			transition: all 0.2s ease !important;
 			touch-action: manipulation !important;
 		}
 		
@@ -1602,5 +1712,89 @@
 	:global(.maplibregl-ctrl-top-right),
 	:global(.maplibregl-ctrl-bottom-right) {
 		transition: right 0.4s ease !important;
+	}
+
+	/* Mobile close button styling for car dialog */
+	:global(.car-owner-dialog [data-bits-dialog-close]) {
+		position: absolute !important;
+		top: 1rem !important;
+		right: 1rem !important;
+		width: 44px !important;
+		height: 44px !important;
+		min-width: 44px !important;
+		min-height: 44px !important;
+		border-radius: 50% !important;
+		background: rgba(0, 0, 0, 0.6) !important;
+		backdrop-filter: blur(8px) !important;
+		border: 1px solid rgba(255, 255, 255, 0.2) !important;
+		color: #ffffff !important;
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		cursor: pointer !important;
+		z-index: 1000 !important;
+		pointer-events: auto !important;
+		opacity: 1 !important;
+		transition: all 0.2s ease !important;
+		touch-action: manipulation !important;
+	}
+	
+	/* Desktop close button styling for car dialog */
+	@media (min-width: 769px) {
+		:global(.car-owner-dialog [data-bits-dialog-close]) {
+			width: 32px !important;
+			height: 32px !important;
+			min-width: 32px !important;
+			min-height: 32px !important;
+			top: 0.75rem !important;
+			right: 0.75rem !important;
+		}
+		
+		:global(.car-owner-dialog [data-bits-dialog-close] svg) {
+			width: 16px !important;
+			height: 16px !important;
+		}
+	}
+
+	/* Hide default Dialog close buttons since we have custom ones - COMPREHENSIVE */
+	:global(.bike-dialog button.absolute.right-4.top-4.rounded-sm:not(.custom-close)),
+	:global(.bike-dialog [data-bits-dialog-close]:not(.custom-close)),
+	:global(.bike-dialog button[aria-label*="Close"]:not(.custom-close)),
+	:global(.bike-dialog button[aria-label*="close"]:not(.custom-close)) {
+		display: none !important;
+		visibility: hidden !important;
+		opacity: 0 !important;
+		pointer-events: none !important;
+		position: absolute !important;
+		left: -9999px !important;
+		width: 0 !important;
+		height: 0 !important;
+		overflow: hidden !important;
+	}
+	
+	:global(.car-owner-dialog button.absolute.right-4.top-4.rounded-sm:not(.custom-close)),
+	:global(.car-owner-dialog [data-bits-dialog-close]:not(.custom-close)),
+	:global(.car-owner-dialog button[aria-label*="Close"]:not(.custom-close)),
+	:global(.car-owner-dialog button[aria-label*="close"]:not(.custom-close)) {
+		display: none !important;
+		visibility: hidden !important;
+		opacity: 0 !important;
+		pointer-events: none !important;
+		position: absolute !important;
+		left: -9999px !important;
+		width: 0 !important;
+		height: 0 !important;
+		overflow: hidden !important;
+	}
+	
+	/* Fallback: hide any button in top-right corner that's not our custom one */
+	:global(.bike-dialog > button:first-child:not(.custom-close)),
+	:global(.bike-dialog > *:last-child:not(.custom-close)) {
+		display: none !important;
+	}
+	
+	:global(.car-owner-dialog > button:first-child:not(.custom-close)),
+	:global(.car-owner-dialog > *:last-child:not(.custom-close)) {
+		display: none !important;
 	}
 </style>
