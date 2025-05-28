@@ -1320,6 +1320,43 @@
 		:global(.bike-dialog .text-xl) {
 			font-size: 1.125rem !important;
 		}
+		
+		/* Mobile close button styling for bike dialog */
+		:global(.bike-dialog [data-bits-dialog-close]) {
+			position: absolute !important;
+			top: 1rem !important;
+			right: 1rem !important;
+			width: 44px !important;
+			height: 44px !important;
+			min-width: 44px !important;
+			min-height: 44px !important;
+			border-radius: 50% !important;
+			background: rgba(0, 0, 0, 0.6) !important;
+			backdrop-filter: blur(8px) !important;
+			border: 1px solid rgba(255, 255, 255, 0.2) !important;
+			color: #ffffff !important;
+			display: flex !important;
+			align-items: center !important;
+			justify-content: center !important;
+			cursor: pointer !important;
+			z-index: 10001 !important;
+			transition: all 0.2s ease !important;
+			opacity: 1 !important;
+			pointer-events: auto !important;
+			touch-action: manipulation !important;
+		}
+		
+		:global(.bike-dialog [data-bits-dialog-close]:hover),
+		:global(.bike-dialog [data-bits-dialog-close]:active) {
+			background: rgba(0, 0, 0, 0.8) !important;
+			border-color: rgba(255, 255, 255, 0.3) !important;
+			transform: scale(1.05) !important;
+		}
+		
+		:global(.bike-dialog [data-bits-dialog-close] svg) {
+			width: 20px !important;
+			height: 20px !important;
+		}
 	}
 
 	/* Car Owner Dialog Styling - London Underground Live inspired */
@@ -1465,6 +1502,43 @@
 		:global(.car-owner-dialog button) {
 			font-size: 0.875rem !important;
 			padding: 0.75rem 1rem !important;
+		}
+
+		/* Mobile close button styling for car dialog */
+		:global(.car-owner-dialog [data-bits-dialog-close]) {
+			position: absolute !important;
+			top: 1rem !important;
+			right: 1rem !important;
+			width: 44px !important;
+			height: 44px !important;
+			min-width: 44px !important;
+			min-height: 44px !important;
+			border-radius: 50% !important;
+			background: rgba(0, 0, 0, 0.6) !important;
+			backdrop-filter: blur(8px) !important;
+			border: 1px solid rgba(255, 255, 255, 0.2) !important;
+			color: #ffffff !important;
+			display: flex !important;
+			align-items: center !important;
+			justify-content: center !important;
+			cursor: pointer !important;
+			z-index: 10001 !important;
+			transition: all 0.2s ease !important;
+			opacity: 1 !important;
+			pointer-events: auto !important;
+			touch-action: manipulation !important;
+		}
+		
+		:global(.car-owner-dialog [data-bits-dialog-close]:hover),
+		:global(.car-owner-dialog [data-bits-dialog-close]:active) {
+			background: rgba(0, 0, 0, 0.8) !important;
+			border-color: rgba(255, 255, 255, 0.3) !important;
+			transform: scale(1.05) !important;
+		}
+		
+		:global(.car-owner-dialog [data-bits-dialog-close] svg) {
+			width: 20px !important;
+			height: 20px !important;
 		}
 	}
 
