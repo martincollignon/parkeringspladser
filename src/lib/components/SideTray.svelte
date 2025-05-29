@@ -106,6 +106,14 @@
 				{/if}
 			</div>
 
+            <!-- Website -->
+            {#if location.website}
+                <div class="space-y-2">
+					<h4 class="text-sm font-medium text-slate-400 uppercase tracking-wider">Hjemmeside</h4>
+					<p class="text-white font-medium">{location.website}</p>
+				</div>
+            {/if}
+
 			<!-- Address -->
 			{#if location.address}
 				<div class="space-y-2">

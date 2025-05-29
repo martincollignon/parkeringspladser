@@ -169,7 +169,8 @@
 						mapillary_url: properties?.mapillary_url,
 						latitude: coordinates[1],
 						longitude: coordinates[0],
-						parking_type: properties?.parking_type
+						parking_type: properties?.parking_type,
+                        website: properties?.website
 					};
 
 					console.log('🗺️ Created location object:', location); // DEBUG: Remove this later
@@ -248,7 +249,8 @@
 						capacity: location.capacity,
 						verified: location.verified,
 						mapillary_url: location.mapillary_url,
-						parking_type: location.parking_type
+						parking_type: location.parking_type,
+                        website: location.website
 					}
 				}))
 			};
