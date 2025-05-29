@@ -76,7 +76,7 @@
 		<div class="tray-header">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-3">
-					<div class="w-3 h-3 rounded-full bg-blue-500 shadow-lg shadow-blue-500/50"></div>
+					<div class="w-3 h-3 rounded-full {location.parking_type === 'long-term' ? 'bg-emerald-500 shadow-lg shadow-emerald-500/50' : 'bg-blue-500 shadow-lg shadow-blue-500/50'}"></div>
 					<h2 class="text-lg font-semibold text-white">Parkeringsinfo</h2>
 				</div>
 				<button 
