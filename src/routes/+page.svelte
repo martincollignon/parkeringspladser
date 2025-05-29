@@ -89,6 +89,34 @@
 						verified: true,
 						created_at: new Date().toISOString(),
 						updated_at: new Date().toISOString()
+					},
+					{
+						id: 'sample-4',
+						name: 'Black Iron Horse',
+						address: 'Nørrebrogade 41, 2200 Copenhagen, Denmark',
+						latitude: 55.688623,
+						longitude: 12.558293,
+						parking_type: 'long-term' as const,
+						operator: 'Cargo Bike Shop',
+						fee_info: 'Phone: +45 33 31 30 27; Email: hello@blackironhorse.com',
+						opening_hours: 'By appointment only',
+						verified: true,
+						created_at: new Date().toISOString(),
+						updated_at: new Date().toISOString()
+					},
+                    {
+						id: 'sample-5',
+						name: 'Jupiter Cykler',
+						address: 'Tagensvej 43, 2200 København N, Denmark',
+						latitude: 55.699767,
+						longitude: 12.553183,
+						parking_type: 'long-term' as const,
+						operator: 'Christiania Bikes Centurion Norden Riese & Müller',
+						fee_info: 'Phone: +45 35 83 83 83; Email: tagensvej@jupiterekstra.dk',
+						opening_hours: 'Monday-Friday: 09:00-17:30 Saturday: 10:00-14:00 Sunday: Closed',
+						verified: true,
+						created_at: new Date().toISOString(),
+						updated_at: new Date().toISOString()
 					}
 				];
 				filteredData = parkingData;
