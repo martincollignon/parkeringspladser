@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { supabase, type Submission } from '$lib/supabase';
 	import Button from '$lib/components/ui/button/Button.svelte';
 	import * as Card from '$lib/components/ui/card';
@@ -21,15 +21,21 @@
 	let isSigningIn = false;
 	let isSendingMagicLink = false;
 	let magicLinkSent = false;
+	let authSubscription: any;
 
 	// Check if user is authenticated
 	async function checkAuth() {
+		console.log('Checking auth state...');
 		const { data: { user: currentUser } } = await supabase.auth.getUser();
+		console.log('Current user from getUser():', currentUser?.email || 'No user');
 		user = currentUser;
 		isAuthLoading = false;
 		
 		if (user) {
+			console.log('User is authenticated, loading submissions...');
 			loadSubmissions();
+		} else {
+			console.log('No authenticated user found');
 		}
 	}
 
@@ -263,6 +269,29 @@
 
 	onMount(() => {
 		checkAuth();
+		
+		// Listen for auth state changes to handle magic link authentication
+		const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+			console.log('Auth state change:', event, session?.user?.email);
+			
+			if (event === 'SIGNED_IN' && session) {
+				user = session.user;
+				isAuthLoading = false;
+				loadSubmissions();
+			} else if (event === 'SIGNED_OUT') {
+				user = null;
+				submissions = [];
+				isAuthLoading = false;
+			}
+		});
+
+		authSubscription = subscription;
+	});
+
+	onDestroy(() => {
+		if (authSubscription) {
+			authSubscription.unsubscribe();
+		}
 	});
 
 	function formatDate(dateString: string) {
