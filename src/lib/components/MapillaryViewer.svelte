@@ -24,6 +24,7 @@
 	let error: string | null = null;
 	let selectedImage: MapillaryImage | null = null;
 	let showContributeSection = false;
+	let selectedIndex: number | null = null;
 
 	async function fetchMapillaryImages() {
 		if (!browser || !PUBLIC_MAPILLARY_ACCESS_TOKEN) {
@@ -98,21 +99,46 @@
 	}
 
 	function openImageViewer(image: MapillaryImage) {
-		selectedImage = image;
+		const index = images.findIndex(img => img.id === image.id);
+		if (index !== -1) {
+			selectedIndex = index;
+			selectedImage = image;
+		}
 	}
 
 	function closeImageViewer() {
 		selectedImage = null;
+		selectedIndex = null;
+	}
+
+	function goToPreviousImage() {
+		if (selectedIndex !== null) {
+			selectedIndex = (selectedIndex - 1 + images.length) % images.length;
+			selectedImage = images[selectedIndex];
+		}
+	}
+
+	function goToNextImage() {
+		if (selectedIndex !== null) {
+			selectedIndex = (selectedIndex + 1) % images.length;
+			selectedImage = images[selectedIndex];
+		}
 	}
 
 	onMount(() => {
 		fetchMapillaryImages();
 	});
 
-	// Handle escape key to close viewer
+	// Handle escape key and arrow keys
 	function handleKeydown(event: KeyboardEvent) {
-		if (event.key === 'Escape' && selectedImage) {
-			closeImageViewer();
+		if (selectedImage) {
+			if (event.key === 'Escape') {
+				closeImageViewer();
+			} else if (event.key === 'ArrowLeft') {
+				goToPreviousImage();
+			} else if (event.key === 'ArrowRight') {
+				goToNextImage();
+			}
 		}
 	}
 
@@ -253,12 +279,33 @@
 				</svg>
 			</button>
 			
+			<!-- Navigation Buttons -->
+			{#if images.length > 1}
+				<button class="nav-button prev-button" on:click|stopPropagation={goToPreviousImage}>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<polyline points="15 18 9 12 15 6"></polyline>
+					</svg>
+				</button>
+				<button class="nav-button next-button" on:click|stopPropagation={goToNextImage}>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<polyline points="9 18 15 12 9 6"></polyline>
+					</svg>
+				</button>
+			{/if}
+			
 			<img 
 				src={selectedImage.thumb_2048_url} 
 				alt="Gadebillede fra {formatDate(selectedImage.captured_at)}"
 				class="full-image"
 			/>
-			
+
+			<!-- Image Numbering -->
+			{#if selectedIndex !== null && images.length > 0}
+				<div class="image-numbering">
+					{selectedIndex + 1} / {images.length}
+				</div>
+			{/if}
+
 			<div class="image-info">
 				<div class="image-meta">
 					<span class="meta-item">
@@ -460,6 +507,18 @@
 		max-height: calc(90vh - 80px);
 		object-fit: contain;
 		display: block;
+	}
+
+	.image-numbering {
+		position: absolute;
+		top: 12px;
+		left: 12px;
+		background: rgba(0, 0, 0, 0.7);
+		color: white;
+		font-size: 14px;
+		padding: 4px 8px;
+		border-radius: 4px;
+		z-index: 1001;
 	}
 
 	.image-info {
@@ -689,5 +748,62 @@
 
 	.tip-text {
 		line-height: 1.3;
+	}
+
+	/* Navigation Button Styles */
+	.nav-button {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		background: rgba(51, 65, 85, 0.7); /* slate-700 with opacity */
+		color: white;
+		border: none;
+		border-radius: 50%;
+		width: 50px;
+		height: 50px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		z-index: 110;
+		transition: background-color 0.2s ease-in-out;
+	}
+
+	.nav-button:hover {
+		background-color: rgba(51, 65, 85, 0.9);
+	}
+
+	.nav-button svg {
+		width: 30px;
+		height: 30px;
+	}
+
+	.prev-button {
+		left: 1rem;
+	}
+
+	.next-button {
+		right: 1rem;
+	}
+
+	/* Adjust button positions on smaller screens */
+	@media (max-width: 768px) {
+		.nav-button {
+			width: 40px;
+			height: 40px;
+		}
+
+		.nav-button svg {
+			width: 24px;
+			height: 24px;
+		}
+
+		.prev-button {
+			left: 0.5rem;
+		}
+
+		.next-button {
+			right: 0.5rem;
+		}
 	}
 </style> 
