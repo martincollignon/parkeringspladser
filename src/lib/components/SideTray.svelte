@@ -146,10 +146,12 @@
 				{/if}
 
 				<!-- Fee Info -->
-				<div class="bg-slate-800/30 rounded-lg p-4 border border-slate-700/30">
-					<div class="text-sm font-medium text-slate-400 mb-1">Pris</div>
-					<div class="text-white font-medium">{formatFeeInfo(location.fee_info)}</div>
-				</div>
+                {#if location.parking_type === 'short-term'}
+                    <div class="bg-slate-800/30 rounded-lg p-4 border border-slate-700/30">
+                        <div class="text-sm font-medium text-slate-400 mb-1">Pris</div>
+                        <div class="text-white font-medium">{formatFeeInfo(location.fee_info)}</div>
+                    </div>
+                {/if}
 
 				<!-- Opening Hours -->
 				<div class="bg-slate-800/30 rounded-lg p-4 border border-slate-700/30">
