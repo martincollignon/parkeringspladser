@@ -119,7 +119,7 @@
 						updated_at: new Date().toISOString()
 					}
 				];
-				filteredData = parkingData;
+				filterData(); // Re-apply filter to sample data
 			}
 		} catch (err) {
 			console.error('Error loading parking data:', err);
