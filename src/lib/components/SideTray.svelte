@@ -110,7 +110,7 @@
             {#if location.website}
                 <div class="space-y-2">
 					<h4 class="text-sm font-medium text-slate-400 uppercase tracking-wider">Hjemmeside</h4>
-					<p class="text-white font-medium">{location.website}</p>
+					<a href={location.website} target="_blank" rel="noopener noreferrer" class="text-white font-medium hover:underline">{location.website}</a>
 				</div>
             {/if}
 
