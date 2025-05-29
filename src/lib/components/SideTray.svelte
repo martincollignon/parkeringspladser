@@ -32,6 +32,9 @@
 	function formatOpeningHours(hours: string | null): string {
 		if (!hours) return 'Ukendt';
 		if (hours === '24/7') return '24/7';
+        // Split the string by a space followed by a capitalized word and a colon, then join with <br>
+		const intervals = hours.split(/\s(?=[A-Z][a-zA-Z]+:)/);
+        hours = intervals.join('<br>');
 		return hours;
 	}
 
@@ -143,7 +146,7 @@
 				<!-- Opening Hours -->
 				<div class="bg-slate-800/30 rounded-lg p-4 border border-slate-700/30">
 					<div class="text-sm font-medium text-slate-400 mb-1">Åbningstider</div>
-					<div class="text-white font-medium">{formatOpeningHours(location.opening_hours)}</div>
+					<div class="text-white font-medium">{@html formatOpeningHours(location.opening_hours)}</div>
 				</div>
 
 				<!-- Capacity -->
