@@ -58,6 +58,7 @@
 						operator: 'Q-Park',
 						fee_info: '25 DKK/time',
 						opening_hours: '24/7',
+                        capacity: 500,
 						verified: true,
 						created_at: new Date().toISOString(),
 						updated_at: new Date().toISOString()
@@ -72,6 +73,7 @@
 						operator: 'Illum',
 						fee_info: '30 DKK/time',
 						opening_hours: '06:00-24:00',
+                        capacity: 500,
 						verified: true,
 						created_at: new Date().toISOString(),
 						updated_at: new Date().toISOString()
@@ -89,9 +91,35 @@
 						verified: true,
 						created_at: new Date().toISOString(),
 						updated_at: new Date().toISOString()
+					},
+					{
+						id: 'sample-4',
+						name: 'Black Iron Horse',
+						address: 'Nørrebrogade 41, 2200 Copenhagen, Denmark',
+						latitude: 55.688623,
+						longitude: 12.558293,
+						parking_type: 'long-term' as const,
+						opening_hours: 'By appointment only',
+                        website: 'https://blackironhorse.com/',
+						verified: true,
+						created_at: new Date().toISOString(),
+						updated_at: new Date().toISOString()
+					},
+                    {
+						id: 'sample-5',
+						name: 'Jupiter Cykler',
+						address: 'Tagensvej 43, 2200 København N, Denmark',
+						latitude: 55.699767,
+						longitude: 12.553183,
+						parking_type: 'long-term' as const,
+						opening_hours: 'Monday-Friday: 09:00-17:30 Saturday: 10:00-14:00 Sunday: Closed',
+                        website: 'https://www.jupiter.dk/',
+						verified: true,
+						created_at: new Date().toISOString(),
+						updated_at: new Date().toISOString()
 					}
 				];
-				filteredData = parkingData;
+				filterData(); // Re-apply filter to sample data
 			}
 		} catch (err) {
 			console.error('Error loading parking data:', err);

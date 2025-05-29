@@ -105,6 +105,13 @@
 		selectedImage = null;
 	}
 
+	// Reactively fetch images when latitude or longitude props change
+	$: {
+        // Note this only works if the console.log is here 
+		console.log("Latitude or longitude reactive block triggered:", { latitude, longitude });
+		fetchMapillaryImages();
+	}
+
 	onMount(() => {
 		fetchMapillaryImages();
 	});

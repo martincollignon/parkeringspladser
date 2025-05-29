@@ -32,6 +32,9 @@
 	function formatOpeningHours(hours: string | null): string {
 		if (!hours) return 'Ukendt';
 		if (hours === '24/7') return '24/7';
+        // Split the string by a space followed by a capitalized word and a colon, then join with <br>
+		const intervals = hours.split(/\s(?=[A-Z][a-zA-Z]+:)/);
+        hours = intervals.join('<br>');
 		return hours;
 	}
 
@@ -73,7 +76,7 @@
 		<div class="tray-header">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-3">
-					<div class="w-3 h-3 rounded-full bg-blue-500 shadow-lg shadow-blue-500/50"></div>
+					<div class="w-3 h-3 rounded-full {location.parking_type === 'long-term' ? 'bg-emerald-500 shadow-lg shadow-emerald-500/50' : 'bg-blue-500 shadow-lg shadow-blue-500/50'}"></div>
 					<h2 class="text-lg font-semibold text-white">Parkeringsinfo</h2>
 				</div>
 				<button 
@@ -102,6 +105,14 @@
 					</div>
 				{/if}
 			</div>
+
+            <!-- Website -->
+            {#if location.website}
+                <div class="space-y-2">
+					<h4 class="text-sm font-medium text-slate-400 uppercase tracking-wider">Hjemmeside</h4>
+					<a href={location.website} target="_blank" rel="noopener noreferrer" class="text-white font-medium hover:underline">{location.website}</a>
+				</div>
+            {/if}
 
 			<!-- Address -->
 			{#if location.address}
@@ -135,15 +146,17 @@
 				{/if}
 
 				<!-- Fee Info -->
-				<div class="bg-slate-800/30 rounded-lg p-4 border border-slate-700/30">
-					<div class="text-sm font-medium text-slate-400 mb-1">Pris</div>
-					<div class="text-white font-medium">{formatFeeInfo(location.fee_info)}</div>
-				</div>
+                {#if location.parking_type === 'short-term'}
+                    <div class="bg-slate-800/30 rounded-lg p-4 border border-slate-700/30">
+                        <div class="text-sm font-medium text-slate-400 mb-1">Pris</div>
+                        <div class="text-white font-medium">{formatFeeInfo(location.fee_info)}</div>
+                    </div>
+                {/if}
 
 				<!-- Opening Hours -->
 				<div class="bg-slate-800/30 rounded-lg p-4 border border-slate-700/30">
 					<div class="text-sm font-medium text-slate-400 mb-1">Åbningstider</div>
-					<div class="text-white font-medium">{formatOpeningHours(location.opening_hours)}</div>
+					<div class="text-white font-medium">{@html formatOpeningHours(location.opening_hours)}</div>
 				</div>
 
 				<!-- Capacity -->
