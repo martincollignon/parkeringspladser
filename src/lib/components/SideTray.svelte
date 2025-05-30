@@ -166,6 +166,14 @@
 						<div class="text-white font-medium">{location.capacity} pladser</div>
 					</div>
 				{/if}
+
+                <!-- Bike Types -->
+                {#if location.bike_types}
+                    <div class="bg-slate-800/30 rounded-lg p-4 border border-slate-700/30">
+                        <div class="text-sm font-medium text-slate-400 mb-1">Cykel typer</div>
+                        <div class="text-white font-medium">{location.bike_types}</div>
+                    </div>
+                {/if}
 			</div>
 
 			<!-- Navigation Button -->

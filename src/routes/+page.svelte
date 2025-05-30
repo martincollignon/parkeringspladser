@@ -101,6 +101,7 @@
 						parking_type: 'long-term' as const,
 						opening_hours: 'By appointment only',
                         website: 'https://blackironhorse.com/',
+                        bike_types: 'Bike, E-Bike, Cargo Bike',
 						verified: true,
 						created_at: new Date().toISOString(),
 						updated_at: new Date().toISOString()

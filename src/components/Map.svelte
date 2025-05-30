@@ -170,7 +170,8 @@
 						latitude: coordinates[1],
 						longitude: coordinates[0],
 						parking_type: properties?.parking_type,
-                        website: properties?.website
+                        website: properties?.website,
+                        bike_types: properties?.bike_types
 					};
 
 					console.log('🗺️ Created location object:', location); // DEBUG: Remove this later
@@ -250,7 +251,8 @@
 						verified: location.verified,
 						mapillary_url: location.mapillary_url,
 						parking_type: location.parking_type,
-                        website: location.website
+                        website: location.website,
+                        bike_types: location.bike_types
 					}
 				}))
 			};
