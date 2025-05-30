@@ -138,7 +138,7 @@
 			<!-- Information Grid -->
 			<div class="grid grid-cols-1 gap-4">
 				<!-- Operator -->
-				{#if location.operator}
+				{#if location.operator && location.parking_type === 'short-term'}
 					<div class="bg-slate-800/30 rounded-lg p-4 border border-slate-700/30">
 						<div class="text-sm font-medium text-slate-400 mb-1">Operatør</div>
 						<div class="text-white font-medium">{location.operator}</div>
@@ -167,8 +167,6 @@
 					</div>
 				{/if}
 			</div>
-
-
 
 			<!-- Navigation Button -->
 			<div class="border-t border-slate-700/30 pt-4">
